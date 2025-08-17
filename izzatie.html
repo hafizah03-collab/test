@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Love Popup</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-image: url('backgroundhtml12.jpg'); /* replace with your image file name */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 1.5rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      background: #e91e63;
+      color: white;
+      transition: transform 0.2s ease, background 0.3s ease;
+      z-index: 10;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      background: #d81b60;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 2rem;
+      color: #e91e63;
+      animation: floatUp linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-200px) scale(1.5);
+      }
+    }
+  </style>
+</head>
+<body>
+  <button id="loveBtn">Click Here!</button>
+
+  <script>
+    const button = document.getElementById("loveBtn");
+
+    button.addEventListener("click", () => {
+      for (let i = 0; i < 5; i++) { // spawn multiple hearts per click
+        createHeart();
+      }
+    });
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.textContent = "❤️";
+
+      // Random size
+      const size = Math.random() * 20 + 20; // 20px to 40px
+      heart.style.fontSize = size + "px";
+
+      // Button position
+      const rect = button.getBoundingClientRect();
+
+      // Random offset around button
+      const offsetX = (Math.random() - 0.5) * 100; 
+      heart.style.left = rect.left + rect.width / 2 + offsetX + "px";
+      heart.style.top = rect.top + window.scrollY + "px";
+
+      // Random animation duration
+      const duration = Math.random() * 1 + 1.5; // 1.5s to 2.5s
+      heart.style.animationDuration = duration + "s";
+
+      document.body.appendChild(heart);
+
+      // Remove after animation
+      setTimeout(() => {
+        heart.remove();
+      }, duration * 1000);
+    }
+  </script>
+</body>
+</html>
